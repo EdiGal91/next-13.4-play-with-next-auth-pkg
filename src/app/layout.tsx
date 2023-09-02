@@ -21,6 +21,10 @@ const LINKS: ILink[] = [
     title: "Dashboard",
     href: "/dashboard",
   },
+  {
+    title: "Admin",
+    href: "/admin",
+  },
 ];
 
 export default function RootLayout({
@@ -32,9 +36,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <header>
-          <div className="w-full flex justify-center items-center bg-gray-200">
+          <div className="w-full flex justify-center items-center bg-gray-200 ">
             {LINKS.map((link) => (
-              <Link key={link.title} className="my-2 mx-4 p-2" href={link.href}>
+              <Link
+                key={link.title}
+                className="my-2 mx-4 p-2 hover:bg-gray-600 hover:text-white rounded-md"
+                href={link.href}
+              >
                 {link.title}
               </Link>
             ))}
