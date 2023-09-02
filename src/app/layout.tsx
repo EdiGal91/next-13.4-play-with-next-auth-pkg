@@ -25,6 +25,10 @@ const LINKS: ILink[] = [
     title: "Admin",
     href: "/admin",
   },
+  {
+    title: "Client",
+    href: "/client",
+  },
 ];
 
 export default function RootLayout({

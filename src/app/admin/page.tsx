@@ -8,5 +8,10 @@ export default async function Admin() {
   if (!session) {
     return redirect("/api/auth/signin?callbackUrl=/admin");
   }
-  return <div>Admin</div>;
+  return (
+    <div>
+      Admin - protected by <code>getServerSession</code>
+      <h3>Hello {session?.user?.email}</h3>
+    </div>
+  );
 }

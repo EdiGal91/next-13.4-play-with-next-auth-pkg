@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function DashBoard() {
-  return <div>DashBoard</div>;
+  return <div>DashBoard - protected by middleware</div>;
 }
