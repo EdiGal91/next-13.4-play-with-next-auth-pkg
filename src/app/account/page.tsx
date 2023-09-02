@@ -14,7 +14,7 @@ export default function Logout() {
   }
   return (
     <div className="w-full flex justify-center items-center flex-col">
-      <h3>Logout Page</h3>
+      <h3>Account Page</h3>
       <button
         onClick={() => {
           signOut();

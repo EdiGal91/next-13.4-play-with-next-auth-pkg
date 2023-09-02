@@ -31,8 +31,8 @@ async function getLinks(): Promise<ILink[]> {
     ...(session
       ? [
           {
-            title: "Logout",
-            href: "/logout",
+            title: "Account",
+            href: "/account",
           },
         ]
       : [
