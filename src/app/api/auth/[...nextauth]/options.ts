@@ -1,5 +1,13 @@
+import User from "@/models/User";
+import dbConnect from "@/utils/dbConnect";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+interface IUser {
+  id: string;
+  email: string;
+  password?: string;
+}
 
 export const options: NextAuthOptions = {
   pages: {
@@ -10,26 +18,24 @@ export const options: NextAuthOptions = {
       credentials: {
         email: { type: "text" },
         password: { type: "password" },
+        authType: { type: "text" },
       },
       async authorize(credentials, req) {
         if (!credentials?.email) return null;
         if (!credentials?.password) return null;
-
-        interface IUser {
-          id: string;
-          email: string;
-          password?: string;
+        const { email, password, authType } = credentials;
+        await dbConnect();
+        if (authType === "register") {
+          await User.create({
+            email,
+            password,
+          });
         }
+        const user: IUser | null = await User.findOne({ email });
+        if (!user) return null;
 
-        // have a user
-        const user: IUser = {
-          id: "123",
-          email: "edi@sec.gov",
-          password: "asd123",
-        };
-
-        const isEmailOk = credentials.email === user.email;
-        const isPassOk = credentials.password === user.password;
+        const isEmailOk = email === user.email;
+        const isPassOk = password === user.password;
         if (isEmailOk && isPassOk) {
           delete user.password;
           return user;
