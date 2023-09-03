@@ -1,13 +1,7 @@
-import User from "@/models/User";
+import User, { IUser } from "@/models/User";
 import dbConnect from "@/utils/dbConnect";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-interface IUser {
-  id: string;
-  email: string;
-  password?: string;
-}
 
 export const options: NextAuthOptions = {
   pages: {
@@ -19,6 +13,7 @@ export const options: NextAuthOptions = {
         email: { type: "text" },
         password: { type: "password" },
         authType: { type: "text" },
+        role: { type: "text" },
       },
       async authorize(credentials, req) {
         if (!credentials?.email) return null;
@@ -44,4 +39,15 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    signIn({ user }) {
+      return true;
+    },
+    async session({ session, user, token }) {
+      return session;
+    },
+    jwt({ token, user }) {
+      return token;
+    },
+  },
 };
